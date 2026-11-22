@@ -17,6 +17,18 @@ try {
     assert.equal(conceptImages.length, 6);
     assert.equal(new Set(conceptImages).size, 6, 'Duplicate image path in showcase');
     assert.ok(conceptImages.every(src => src?.startsWith('/portfolio/') && !src.includes('overview')), 'Portfolio must use individual campaigns, not collage');
+    await page.locator('#showcase').scrollIntoViewIfNeeded();
+    await page.locator('#showcase img').evaluateAll(images => images.forEach(image => { image.loading = 'eager'; }));
+    await page.waitForFunction(
+      () => {
+        const images = [...document.querySelectorAll('#showcase img')];
+        return images.length === 6 && images.every(img => img.complete && img.naturalWidth > 0);
+      },
+      undefined,
+      { timeout: 20000 }
+    );
+    assert.equal(await page.locator('#showcase .group img').count(), 6, 'All portfolio artwork must render');
+    await page.locator('#showcase').screenshot({ path: 'test-artifacts/portfolio-' + width + '.png' });
     await page.getByRole('button', { name: 'Healthcare', exact: true }).click();
     assert.equal(await page.locator('#showcase article').count(), 2);
     await page.getByRole('button', { name: 'Beauty & Wellness', exact: true }).click();
