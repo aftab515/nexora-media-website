@@ -5,9 +5,10 @@ import { scrollToId } from '../constants';
 
 const NAV_LINKS = [
   { label: 'Services', id: 'services' },
+  { label: 'Showcase', id: 'showcase' },
   { label: 'Packages', id: 'packages' },
   { label: 'Our System', id: 'system' },
-  { label: 'Free Audit', id: 'audit' },
+  { label: 'Growth Planner', id: 'audit' },
 ];
 
 export default function Navbar() {
@@ -20,6 +21,13 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, [open]);
 
   const go = (id: string) => {
     setOpen(false);
@@ -36,14 +44,14 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })}
           className="shrink-0"
           aria-label="Back to top"
         >
           <Logo />
         </button>
 
-        <ul className="hidden items-center gap-9 lg:flex">
+        <ul className="hidden items-center gap-6 xl:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.id}>
               <button
@@ -67,7 +75,7 @@ export default function Navbar() {
           </a>
           <button
             onClick={() => setOpen(!open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-sage-200 bg-white text-forest-700 lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-sage-200 bg-white text-forest-700 xl:hidden"
             aria-label="Toggle menu"
             aria-expanded={open}
             aria-controls="mobile-navigation"
@@ -78,7 +86,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div id="mobile-navigation" className="border-t border-sage-200 bg-cream px-5 pb-6 pt-3 lg:hidden">
+        <div id="mobile-navigation" className="border-t border-sage-200 bg-cream px-5 pb-6 pt-3 xl:hidden">
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.id}>
