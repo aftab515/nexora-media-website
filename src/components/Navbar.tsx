@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
-import { scrollToId, whatsappLink, WHATSAPP_MESSAGES } from '../constants';
+import { scrollToId } from '../constants';
 
 const NAV_LINKS = [
   { label: 'Services', id: 'services' },
@@ -59,18 +59,18 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <a
-            href={whatsappLink(WHATSAPP_MESSAGES.freeAudit)}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#audit"
             onClick={() => go('audit')}
             className="hidden rounded-full bg-forest-700 px-6 py-3 text-sm font-semibold text-cream shadow-elevated transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-600 sm:inline-block"
           >
-            Claim Free Audit
+            Free Growth Plan
           </a>
           <button
             onClick={() => setOpen(!open)}
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-sage-200 bg-white text-forest-700 lg:hidden"
             aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -78,7 +78,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-sage-200 bg-cream px-5 pb-6 pt-3 lg:hidden">
+        <div id="mobile-navigation" className="border-t border-sage-200 bg-cream px-5 pb-6 pt-3 lg:hidden">
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.id}>
@@ -92,13 +92,11 @@ export default function Navbar() {
             ))}
             <li className="pt-2">
               <a
-                href={whatsappLink(WHATSAPP_MESSAGES.freeAudit)}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#audit"
                 onClick={() => go('audit')}
                 className="block rounded-full bg-forest-700 px-6 py-3 text-center text-sm font-semibold text-cream"
               >
-                Claim Free Audit
+                Free Growth Plan
               </a>
             </li>
           </ul>
