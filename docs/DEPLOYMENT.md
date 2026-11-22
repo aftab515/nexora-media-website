@@ -11,6 +11,7 @@ The site is a static Vite/React application. Build with Node 22.12+ using `npm c
 ## 2. Vercel access and project setup
 
 - Sign in to the **authorized Vercel team/account**. Do not paste API tokens, recovery codes or secrets into chat, issues or commits.
+- Enable account **two-factor authentication (2FA)** before public launch. The authenticated Vercel dashboard displayed an 'Enable 2FA' reminder during the 22 November 2026 check; confirm it is actually enabled before considering the account secured.
 - Confirm whether a **Nexora Media project** already exists. Avoid creating a duplicate project or replacing another site's deployment.
 - If no project exists, import GitHub repository `aftab515/nexora-media-website`, set framework to Vite, root directory `./`, output `dist` and production branch `main`.
 - Enable Git integration for preview deployments on pull requests, including `improvements/website-audit`, and inspect the preview before merging.
