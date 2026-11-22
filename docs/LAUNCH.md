@@ -9,7 +9,7 @@
 
 ## Verification
 Use Node 22.12+ and run `npm ci`, `npm run typecheck`, `npm run lint`, `npm run build`, and `node --experimental-strip-types --test tests/growth-planner.test.mjs`.
-Browser smoke checks: install Playwright with `npm install --no-save --package-lock=false playwright@1.56.1`, run `npx playwright install --with-deps chromium`, start `npm run preview -- --host 127.0.0.1`, then `node tests/browser-smoke.mjs`.
+Browser smoke checks: install Playwright with `npm install --no-save --package-lock=false playwright@1.56.1`, run `npx playwright install --with-deps chromium`, start `npm run preview -- --host 127.0.0.1`, then `node tests/browser-smoke.mjs`. Smoke checks now assert that six distinct WebP images actually render at mobile, tablet, and desktop widths; screenshots are saved in `test-artifacts/portfolio-{width}.png`.
 Screenshots and checks do not substitute for a human review on real devices.
 
 ## Security status and database migration
@@ -20,11 +20,15 @@ Screenshots and checks do not substitute for a human review on real devices.
 
 ## Portfolio image installation
 - The gallery expects six optimized WebP assets in `public/portfolio/`: `pizza-restaurant.webp`, `burger-restaurant.webp`, `healthcare-clinic.webp`, `dental-clinic.webp`, `family-hospital.webp`, `international-skincare.webp`.
-- Source images were approved in the Glowing Star conversation and prepared as `nexora-website-portfolio-distinct-assets.zip` (the archive contains the correct `public/portfolio/` folder layout). **These binary images must be uploaded to the repository before deployment**; the GitHub text-file connector cannot write binary assets. Until then the gallery displays an explicit image-pending fallback.
+- All six approved WebP images are installed on the development branch at `public/portfolio/` (GitHub commit `5ea5ce6823170ed0c421f79a2dcea0b65c782309`). The portfolio uses unique assets and does not include the repetitive collage. The image-loading fallback remains only for unexpected load failures.
 - The multi-industry collage was deliberately excluded from the gallery because it repeats food and healthcare subjects already shown as standalone campaigns. Do not upload it as a separate portfolio item.
 - Salon and retail categories should be expanded only with distinct standalone artwork; the collage is not a substitute.
 - Every concept is a fictional brand or illustrative campaign. Do not represent any as commissioned work or claim actual customer relationships without evidence.
 - Confirm the creative is suitable for the intended market and check small typography for legibility before public release.
+
+## Remaining preview and hosting requirements
+- GitHub Actions builds and browser-screenshots are development verification, not a public preview deployment. Check the available hosting provider before offering a preview URL; no staging URL has yet been verified.
+- Keep changes on `improvements/website-audit` until the owner has approved the final hosted preview and sensitive infrastructure changes.
 
 ## Before deployment
 - Check the actual public domain and hosting destination; do not invent canonical URLs.
