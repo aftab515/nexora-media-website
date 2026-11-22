@@ -26,6 +26,7 @@ export default function Footer() {
             <p className="mt-5 text-sm font-medium text-sage-100">
               Faisalabad, Pakistan &bull; Serving Brands Nationwide &amp; Globally
             </p>
+            <a className="mt-4 inline-block text-sm font-medium text-gold-400 underline" href="https://www.instagram.com/nexoramedia792/" target="_blank" rel="noopener noreferrer">Instagram @nexoramedia792</a>
           </div>
 
           <div>
@@ -51,21 +52,21 @@ export default function Footer() {
               START TODAY
             </h4>
             <p className="mt-5 text-[15px] leading-relaxed text-sage-100">
-              Get a free 5-minute audit of your page and see what growth is being left
-              on the table.
+              Get a free preliminary growth plan based on your business goals, or contact Nexora for a manual page review.
             </p>
             <a
-              href={whatsappLink(WHATSAPP_MESSAGES.freeAudit)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => scrollToId('audit')}
+              href="#audit"
               className="mt-6 inline-block rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-forest-900 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400"
             >
-              Claim Free Audit
+              Get a Free Growth Plan
             </a>
           </div>
         </div>
 
+        <details id="privacy" className="mt-10 rounded-2xl border border-forest-500 p-5 text-sm leading-relaxed text-sage-100">
+          <summary className="cursor-pointer font-semibold text-cream">Privacy notice</summary>
+          <p className="mt-3">The growth planner uses your business name, public page link, industry and answers in your browser to prepare recommendations. It does not automatically submit your answers to Nexora. If you choose to send a WhatsApp message, those details are shared through WhatsApp and may be used to respond to your inquiry. Please do not include passwords, patient details or other sensitive information. Contact Nexora via WhatsApp with questions about your inquiry or requests concerning your information.</p>
+        </details>
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-forest-500 pt-8 sm:flex-row">
           <p className="text-sm text-sage-100">
             &copy; {year} Nexora Media. All rights reserved.
