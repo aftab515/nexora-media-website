@@ -1,6 +1,6 @@
 # Nexora Media — Vercel deployment and final verification
 
-**Verified code branch:** `improvements/website-audit` (PR #1 into `main`).
+**Source branch reviewed:** `improvements/website-audit` (PR #1 into `main`). The owner explicitly authorized merging the reviewed source into `main` before Vercel production deployment. Merging is not itself a public launch.
 
 ## 1. Current scope
 
@@ -41,8 +41,8 @@ The checked-in migration `supabase/migrations/20261122090000_disable_public_audi
 6. Verify HTTPS, security headers, favicon, site title, OG preview and robots directives on the **actual domain**. Configure canonical URL and sitemap only after domain confirmation.
 7. Inspect Vercel project/environment configuration for secrets or unexpected analytics/scripts; do not expose credentials in screenshots or logs.
 8. Confirm the Supabase legacy policy status, privacy notice and any data retention actions.
-9. Merge only after verification, then check live production build and contact workflow end to end. Record deployment URL, date and commit in the PR.
+9. Merge the verified, owner-approved website source into `main`; then use the separately authorized Vercel project to deploy. Check the live production build and contact workflow end to end. Record the verified deployment URL, date and commit in the repository.
 
 ## 6. Change log expectations
 
-Every launch/deploy change belongs in the GitHub PR with a clear commit and comment. Document the exact verified URL; if a step has not been completed, mark it pending rather than implying success.
+Every launch/deploy change belongs in GitHub with a clear commit and comment. A `main` push runs the same website checks and, after verification passes, creates a versioned **private source-code pre-release** and build archive (see `docs/RELEASE_NOTES_v0.1.0.md`). GitHub Releases are **not** Vercel deployments. Document the exact verified URL only after one exists; mark incomplete stages as pending.
