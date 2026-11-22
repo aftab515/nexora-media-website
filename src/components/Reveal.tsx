@@ -15,6 +15,10 @@ export default function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
