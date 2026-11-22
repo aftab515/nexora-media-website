@@ -1,6 +1,6 @@
 # Nexora Media website v0.1.0 — Source-code preview (pre-release)
 
-This **pre-release** records the approved, tested website source and built assets in the private GitHub repository. It **does not mean that the website is live** on Vercel or on a custom domain.
+This **pre-release** records approved, tested website source and built assets. The GitHub repository is currently **public**, so its release may be viewed by anyone. A GitHub release is distinct from deployment; the currently verified Vercel address is https://nexoramediaofficial.vercel.app/.
 
 ## Included
 - Responsive Vite + React + TypeScript + Tailwind website for Nexora Media in Faisalabad, Pakistan.
