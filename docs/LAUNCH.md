@@ -28,7 +28,7 @@ Screenshots and checks do not substitute for a human review on real devices.
 
 ## Branding and Vercel deployment preparation
 - Added `vercel.json` for a Vite static build and baseline browser security headers. This is configuration, **not** a confirmed Vercel deployment.
-- `public/favicon.svg` and `src/components/Logo.tsx` render Nexora artwork. The `.bolt/` directory is source-development metadata and is not packaged by Vite. A build-time branding test and browser test reject Bolt attribution or external builder links; verify again on the final hosted URL.
+- `public/favicon.svg` and `src/components/Logo.tsx` render Nexora artwork. The unused `.bolt/` development metadata has been removed from the repository and is now ignored by Git. A build-time branding test and browser test reject Bolt attribution or external builder links; verify again on the final hosted URL.
 - The full deployment and account setup procedure is documented in `docs/DEPLOYMENT.md`. An authenticated Vercel browser session does not establish an installed ChatGPT Vercel deployment connection.
 
 ## Remaining preview and hosting requirements

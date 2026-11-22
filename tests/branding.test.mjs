@@ -4,7 +4,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 // This is a guard against shipping third-party builder attribution in Nexora's
-// deployed files. The source-only .bolt folder is intentionally not part of dist.
+// deployed files. Legacy Bolt source metadata was removed; builder branding must not appear in dist.
 const unwantedAttribution = /(?:\bbolt\.new\b|\bstackblitz\b|powered\s+by\s+bolt|bolt[-_ ]?(?:logo|badge|watermark))/i;
 
 async function textAssets(directory) {

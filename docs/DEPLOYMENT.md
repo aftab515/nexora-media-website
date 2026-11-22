@@ -30,7 +30,7 @@ The checked-in migration `supabase/migrations/20261122090000_disable_public_audi
 ## 4. Nexora branding and Bolt removal verification
 
 - The website renders `src/components/Logo.tsx`, a custom Nexora mark, and `public/favicon.svg` (a custom N mark).
-- `.bolt/` contains source-development metadata only. It is not imported by Vite into `dist/` and does not, on its own, inject a visible badge.
+- The unused `.bolt/` metadata was removed from the repository and is excluded by `.gitignore`; it was never required by the Vite app. The build-time branding guard checks deployed files for unwanted Bolt attribution.
 - `tests/branding.test.mjs` rejects known Bolt builder branding strings in the **built output**; `tests/browser-smoke.mjs` checks the visible page after rendering.
 - After real Vercel deployment, verify the **deployed URL** in a normal browser: no bottom-corner Bolt badge, no Bolt logo in favicon, no Bolt attribution, no unexpected external scripts or redirects.
 - If a badge is inserted by a third-party host, eliminate it at the authorized platform/project setting; do not hide a badge with a fragile CSS-only workaround.
