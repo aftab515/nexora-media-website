@@ -12,7 +12,13 @@ try {
     await page.goto('http://127.0.0.1:4173', { waitUntil: 'networkidle' });
     await page.locator('h1').waitFor();
     assert.equal(await page.locator('h1').count(), 1);
-    assert.ok(await page.locator('#showcase article').count() === 3);
+    assert.equal(await page.locator('#showcase article').count(), 7);
+    await page.getByRole('button', { name: 'Healthcare', exact: true }).click();
+    assert.equal(await page.locator('#showcase article').count(), 3);
+    await page.getByRole('button', { name: 'International Brands', exact: true }).click();
+    assert.equal(await page.locator('#showcase article').count(), 1);
+    await page.getByRole('button', { name: 'All', exact: true }).click();
+    assert.equal(await page.locator('#showcase article').count(), 7);
     assert.equal(await page.locator('#about').count(), 1);
     assert.equal(await page.locator('#contact').count(), 1);
     assert.equal(await page.locator('#contact a[href^="https://wa.me/"]').count(), 2);
