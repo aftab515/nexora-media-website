@@ -17,8 +17,8 @@
 ## Repository sections
 
 - **About:** [Suggested GitHub About description, topics and homepage policy](docs/REPOSITORY_PROFILE.md).
-- **Releases:** [v0.1.0 source-preview notes](docs/RELEASE_NOTES_v0.1.0.md) and [change history](CHANGELOG.md). After a merge to `main`, CI will verify the exact code and, if successful, create one private **pre-release** with the verified static build. That is not a Vercel launch.
-- **Packages:** [Commercial marketing service packages](docs/SERVICE_PACKAGES.md) are described separately from GitHub's software package registry. This repository is a **private website application**, not a reusable npm library or container. `GitHub Packages` is intentionally empty.
+- **Releases:** [v0.1.0 source-preview notes](docs/RELEASE_NOTES_v0.1.0.md) and [change history](CHANGELOG.md). After a merge to `main`, CI will verify the exact code and, if successful, create one **pre-release** of the verified static build (publicly visible while the repository is public). That is not a Vercel launch.
+- **Packages:** [Commercial marketing service packages](docs/SERVICE_PACKAGES.md) are described separately from GitHub's software package registry. This repository is currently **public** and contains an application, not a reusable npm library or container. `GitHub Packages` is intentionally empty.
 - **Deployment:** [https://nexoramediaofficial.vercel.app/](https://nexoramediaofficial.vercel.app/); [Vercel and production checks](docs/DEPLOYMENT.md). Vercel domain is verified; final compliance and database security items remain.
 
 ## Local development

@@ -11,7 +11,7 @@ The site is a static Vite/React application. Build with Node 22.12+ using `npm c
 ## 2. Vercel access and project setup
 
 - Sign in to the **authorized Vercel team/account**. Do not paste API tokens, recovery codes or secrets into chat, issues or commits.
-- Enable account **two-factor authentication (2FA)** before public launch. The authenticated Vercel dashboard displayed an 'Enable 2FA' reminder during the 22 November 2026 check; confirm it is actually enabled before considering the account secured.
+- Enable account **two-factor authentication (2FA)** before public launch. The account was checked on 22 November 2026 and showed TOTP **Active / Enrolled**. Reverify after changes to account security.
 - Nexora Vercel project exists: `nexora-media-website` (`prj_oJ6DQmiQ32r2RAMMaA5fGTA3S84X`). Do not create duplicates or replace unrelated sites.
 - The existing project imports GitHub `aftab515/nexora-media-website`, framework Vite, Node 22.x, root `./`, output `dist` and production branch `main`.
 - Enable Git integration for preview deployments on pull requests, including `improvements/website-audit`, and inspect the preview before merging.
@@ -49,4 +49,4 @@ The checked-in migration `supabase/migrations/20261122090000_disable_public_audi
 
 ## 6. Change log expectations
 
-Every launch/deploy change belongs in GitHub with a clear commit and comment. A `main` push runs the same website checks and, after verification passes, creates a versioned **private source-code pre-release** and build archive (see `docs/RELEASE_NOTES_v0.1.0.md`). GitHub Releases are **not** Vercel deployments. Document the exact verified URL only after one exists; mark incomplete stages as pending.
+Every launch/deploy change belongs in GitHub with a clear commit and comment. A `main` push runs the same website checks and, after verification passes, creates a versioned **source-code pre-release** and build archive (public if the repository is public) (see `docs/RELEASE_NOTES_v0.1.0.md`). GitHub Releases are **not** Vercel deployments. Document the exact verified URL only after one exists; mark incomplete stages as pending.
