@@ -5,9 +5,9 @@ import { scrollToId, whatsappLink, WHATSAPP_MESSAGES } from '../constants';
 const PILLARS = ['STRATEGY', 'CONTENT', 'ADS', 'GROWTH'];
 
 const METRICS = [
-  { icon: TrendingUp, value: '+62%', label: 'Conversions' },
-  { icon: Play, value: '4.8x', label: 'Average ROAS' },
-  { icon: Instagram, value: '9:16', label: 'High-Retention Reels' },
+  { icon: TrendingUp, value: 'Strategy', label: 'Conversion-focused planning' },
+  { icon: Play, value: 'Creative', label: 'Reels and content production' },
+  { icon: Instagram, value: 'Meta Ads', label: 'Campaign testing & optimization' },
 ];
 
 export default function Hero() {
@@ -41,8 +41,7 @@ export default function Hero() {
           <Reveal delay={200}>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-forest-500">
               High-retention Reels production, scroll-stopping brand content, and
-              ROI-driven Meta Ads engineered to turn digital attention into paying
-              clients.
+              measurable Meta Ads campaigns designed to help turn digital attention into qualified inquiries.
             </p>
           </Reveal>
 
@@ -60,13 +59,10 @@ export default function Hero() {
           <Reveal delay={360}>
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a
-                href={whatsappLink(WHATSAPP_MESSAGES.freeAudit)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => scrollToId('audit')}
+                href="#audit"
                 className="group inline-flex items-center gap-2 rounded-full bg-forest-700 px-7 py-4 text-sm font-semibold text-cream shadow-elevated transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-600"
               >
-                Get Free 5-Min Page Audit
+                Get Your Free Growth Plan
                 <ArrowRight
                   size={17}
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -88,10 +84,10 @@ export default function Hero() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-[11px] font-bold tracking-widest2 text-sage-600">
-                    LIVE PERFORMANCE
+                    OUR APPROACH
                   </p>
                   <p className="mt-1 font-serif text-xl font-semibold text-forest-700">
-                    Growth Snapshot
+                    The Nexora Growth System
                   </p>
                 </div>
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-forest-700 text-cream">
@@ -122,8 +118,8 @@ export default function Hero() {
 
               <div className="mt-7 flex items-center justify-between rounded-2xl bg-forest-700 px-5 py-4">
                 <p className="text-sm font-medium leading-snug text-cream">
-                  Attention engineered into{' '}
-                  <span className="font-semibold text-gold-400">paying clients.</span>
+                  A clear strategy for{' '}
+                  <span className="font-semibold text-gold-400">better inquiries.</span>
                 </p>
                 <a
                   href={whatsappLink(WHATSAPP_MESSAGES.general)}
