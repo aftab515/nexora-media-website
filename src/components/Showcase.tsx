@@ -30,11 +30,11 @@ const CONCEPTS: Concept[] = [
     description: 'A bold, high-contrast creative direction for a burger brand, built around cravings, texture and memorable food presentation.',
   },
   {
-    title: 'Care Starts with Understanding',
-    category: 'Healthcare',
-    niche: 'Clinic communication',
+    title: 'Derma & Co. Skin Clinic',
+    category: 'Beauty & Wellness',
+    niche: 'Dermatology & skin care',
     image: '/portfolio/healthcare-clinic.webp',
-    description: 'A calm, professional approach to clinic messaging, designed to explain services without making unsupported medical claims.',
+    description: 'A calm, consultation-led skin clinic concept focused on clear information and a distinctive, natural visual palette.',
   },
   {
     title: 'Pearl Dental Studio',
@@ -56,13 +56,6 @@ const CONCEPTS: Concept[] = [
     niche: 'Beauty & cosmetics',
     image: '/portfolio/international-skincare.webp',
     description: 'A premium editorial direction for a global-facing skincare brand, using product-focused storytelling and restrained typography.',
-  },
-  {
-    title: 'Multi-Industry Creative Directions',
-    category: 'Beauty & Wellness',
-    niche: 'Salons, grooming & local retail',
-    image: '/portfolio/industry-concept-overview.webp',
-    description: 'A visual overview exploring campaigns for men’s grooming, women’s salons, skin clinics and other local businesses.',
   },
 ];
 
@@ -107,7 +100,7 @@ export default function Showcase() {
         <SectionHeading
           eyebrow="NEXORA CREATIVE PORTFOLIO"
           title="Creative Concepts Across Industries"
-          subtitle="Explore sample campaigns for food, healthcare, beauty, grooming and international cosmetics. These are illustrative, fictional-brand concepts—not commissioned client projects, testimonials or verified campaign results."
+          subtitle="Explore sample campaigns for food, healthcare, skin care and international cosmetics. These are illustrative, fictional-brand concepts—not commissioned client projects, testimonials or verified campaign results."
         />
         <div className="mt-10 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter portfolio by industry">
           {CATEGORIES.map(category => (
