@@ -13,6 +13,10 @@ try {
     await page.locator('h1').waitFor();
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('#showcase article').count(), 6);
+    const conceptImages = await page.locator('#showcase img').evaluateAll(nodes => nodes.map(node => node.getAttribute('src')));
+    assert.equal(conceptImages.length, 6);
+    assert.equal(new Set(conceptImages).size, 6, 'Duplicate image path in showcase');
+    assert.ok(conceptImages.every(src => src?.startsWith('/portfolio/') && !src.includes('overview')), 'Portfolio must use individual campaigns, not collage');
     await page.getByRole('button', { name: 'Healthcare', exact: true }).click();
     assert.equal(await page.locator('#showcase article').count(), 2);
     await page.getByRole('button', { name: 'Beauty & Wellness', exact: true }).click();
