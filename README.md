@@ -1,6 +1,10 @@
 # Nexora Media — agency website
 
-Public-facing marketing website for **Nexora Media**, a digital and social media marketing practice based in Faisalabad, Pakistan. Built with React, TypeScript, Tailwind CSS and Vite.
+**About:** Nexora Media is a Faisalabad-based digital and social media marketing practice creating brand content, Reels and Meta advertising campaigns. This repository contains its React + TypeScript + Tailwind CSS + Vite website.
+
+**Repository description (for the GitHub About sidebar):** Nexora Media's responsive marketing agency website, portfolio concepts, service packages, WhatsApp inquiries and growth planner.
+
+> **Website:** Production URL not yet verified. A source-code release and a successful build do **not** mean the site has been deployed.
 
 ## Features
 
@@ -9,6 +13,13 @@ Public-facing marketing website for **Nexora Media**, a digital and social media
 - Questionnaire-based local growth planner. It **does not** inspect a visitor's actual social-media page, submit leads to Supabase or guarantee sales.
 - Nexora-owned wordmark and favicon. **No Bolt badge, logo or attribution is intentionally shipped.**
 - Privacy notice and basic SEO metadata.
+
+## Repository sections
+
+- **About:** [Suggested GitHub About description, topics and homepage policy](docs/REPOSITORY_PROFILE.md).
+- **Releases:** [v0.1.0 source-preview notes](docs/RELEASE_NOTES_v0.1.0.md) and [change history](CHANGELOG.md). After a merge to `main`, CI will verify the exact code and, if successful, create one private **pre-release** with the verified static build. That is not a Vercel launch.
+- **Packages:** [Commercial marketing service packages](docs/SERVICE_PACKAGES.md) are described separately from GitHub's software package registry. This repository is a **private website application**, not a reusable npm library or container. `GitHub Packages` is intentionally empty.
+- **Deployment:** [Vercel and production checks](docs/DEPLOYMENT.md). No canonical site URL has been confirmed.
 
 ## Local development
 
@@ -41,4 +52,4 @@ An earlier Supabase table policy may still allow unauthenticated inserts at the 
 
 ## Repository workflow
 
-Changes are reviewed in pull requests. The six sample images live under `public/portfolio/`. Do not merge or claim a production launch until the production deployment has been verified from the real URL, including mobile responsiveness, branding and inquiry delivery.
+Changes are reviewed in pull requests. The six sample images live under `public/portfolio/`. Merging reviewed website source into `main` is separate from production deployment. The deployment URL, mobile behavior, branding, SSL and inquiry delivery must be verified on the real hosted URL before claiming a public launch.
