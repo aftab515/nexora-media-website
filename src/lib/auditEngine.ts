@@ -7,7 +7,6 @@ export type AuditInput = {
 };
 
 export type Diagnostic = {
-  score: number;
   scoreLabel: string;
   bottlenecks: string[];
   fixes: string[];
@@ -64,13 +63,13 @@ const SITUATION_FIXES: Record<string, string[]> = {
 
 const INDUSTRY_BOTTLENECKS: Record<string, string> = {
   'Clinic / Healthcare':
-    'Trust signals (patient results, doctor authority content) are underused, which matters most in healthcare decisions',
+    'Trust signals (professional credentials and educational content) are underused, which matters most in healthcare decisions',
   'Clothing / Fashion Brand':
     'Product presentation lacks editorial-grade visuals, so perceived value drops below the price point',
   'Restaurant / Cafe':
     'Craving-driven Reels (food close-ups, ambiance, offers) are missing, the single biggest driver of walk-ins',
   'Salon / Aesthetics':
-    'Before/after transformations are not packaged as high-retention Reels, losing the niche’s strongest proof',
+    'Service explanations, qualifications and consented examples may need clearer presentation',
   'Real Estate / Builders':
     'Property walkthroughs lack structured hooks and lead capture, so serious buyers scroll past listings',
   'Academy / Education':
@@ -120,27 +119,13 @@ const GOAL_PLANS: Record<string, { name: string; price: string; reasons: string[
   },
 };
 
-function scoreFor(input: AuditInput): number {
-  let score = 38;
-  if (input.situation.startsWith('Posting regularly but')) score += 12;
-  if (input.situation.startsWith('Inconsistent posting')) score += 2;
-  if (input.situation.startsWith('Boosting posts')) score += 8;
-  if (input.situation.startsWith('New brand')) score += 0;
-  if (input.pageLink.trim() !== '') score += 6;
-  if (input.industry === 'E-Commerce / Retail' || input.industry === 'Clothing / Fashion Brand')
-    score += 4;
-  return Math.min(72, score);
-}
-
 export function diagnose(input: AuditInput): Diagnostic {
-  const score = scoreFor(input);
   const plan = GOAL_PLANS[input.goal] ?? GOAL_PLANS['Generate More Sales & WhatsApp Leads'];
   const situationPoints = SITUATION_BOTTLENECKS[input.situation] ?? SITUATION_BOTTLENECKS['Inconsistent posting & basic template designs'];
   const industryPoint =
     INDUSTRY_BOTTLENECKS[input.industry] ?? INDUSTRY_BOTTLENECKS['Other Local Business'];
 
   return {
-    score,
     scoreLabel: 'Preliminary recommendations — manual review needed',
     bottlenecks: [situationPoints[0], situationPoints[1], industryPoint],
     fixes: [situationFixesOf(input)[0], situationFixesOf(input)[1], industryFixOf(input)],
@@ -159,13 +144,13 @@ function situationFixesOf(input: AuditInput): string[] {
 function industryFixOf(input: AuditInput): string {
   const fixes: Record<string, string> = {
     'Clinic / Healthcare':
-      'Authority-building doctor/patient-result content system to earn trust before the inquiry',
+      'Authority-building doctor-led educational content system to earn trust before the inquiry',
     'Clothing / Fashion Brand':
       'Editorial-grade product Reels and poster system that lifts perceived brand value',
     'Restaurant / Cafe':
       'Craving-driven food Reels with offer-led CTAs to drive walk-ins and orders',
     'Salon / Aesthetics':
-      'Before/after transformation Reels packaged for maximum saves and shares',
+      'Informative service explainers and consented examples presented without unrealistic promises',
     'Real Estate / Builders':
       'Hook-structured property walkthroughs wired into a WhatsApp lead funnel',
     'Academy / Education':
@@ -184,7 +169,7 @@ export function buildReportMessage(input: AuditInput, d: Diagnostic): string {
     '',
     `*Brand:* ${input.brandName}`,
     `*Industry:* ${input.industry}`,
-    `*Page:* ${input.pageLink}`,
+    `*Page:* ${input.pageLink || 'Not provided'}`,
     `*Current Situation:* ${input.situation}`,
     `*Primary Goal:* ${input.goal}`,
     '',
@@ -204,7 +189,7 @@ export function buildClientMessageEn(input: AuditInput, d: Diagnostic): string {
   return [
     `Hello ${input.brandName} team, this is Nexora Media.`,
     '',
-    `Based on your questionnaire answers about ${input.pageLink}, here are preliminary suggestions. We have not inspected the page or analytics.`,
+    `Based on your questionnaire answers about ${input.brandName}, here are preliminary suggestions. We have not inspected the page or analytics.`,
     '',
     'These suggestions require a manual review before they can be confirmed.',
     '',
@@ -218,7 +203,7 @@ export function buildClientMessageEn(input: AuditInput, d: Diagnostic): string {
     `— ${d.fixes[1]}`,
     `— ${d.fixes[2]}`,
     '',
-    `Recommended plan: ${d.planName} (${d.planPrice}). It is built specifically for businesses in your situation and includes everything above, handled end-to-end by our team.`,
+    `Recommended plan: ${d.planName} (${d.planPrice}). We can confirm the exact scope and suitability during a consultation.`,
     '',
     'Would you be open to a quick 10-minute call this week to walk through the audit? No obligation at all.',
     '',
@@ -230,7 +215,7 @@ export function buildClientMessageUr(input: AuditInput, d: Diagnostic): string {
   return [
     `Assalam-o-Alaikum ${input.brandName} team! Nexora Media se baat kar rahe hain.`,
     '',
-    `Aap ke questionnaire ke jawabat (${input.pageLink}) ki bunyaad par yeh ibtidaai mashwaray hain. Hum ne page ya analytics check nahi kiye.`,
+    `Aap ke questionnaire ke jawabat (${input.brandName}) ki bunyaad par yeh ibtidaai mashwaray hain. Hum ne page ya analytics check nahi kiye.`,
     '',
     'In mashwaron ki tasdeeq manual review ke baad hogi.',
     '',
@@ -244,7 +229,7 @@ export function buildClientMessageUr(input: AuditInput, d: Diagnostic): string {
     `— ${d.fixes[1]}`,
     `— ${d.fixes[2]}`,
     '',
-    `Humara suggested plan: ${d.planName} (${d.planPrice}). Ye plan aap jaise businesses ke liye design kiya gaya hai — sab kuch hamari team end-to-end handle karti hai.`,
+    `Humara suggested plan: ${d.planName} (${d.planPrice}). Consultation mein hum is plan ki tafseel aur munasibat confirm kar sakte hain.`,
     '',
     'Kya is week ek quick 10-minute call rakh sakte hain audit discuss karne ke liye? Koi zabardasti nahi hai.',
     '',
