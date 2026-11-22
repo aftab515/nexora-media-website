@@ -14,7 +14,7 @@ try {
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'), '/favicon.svg');
     assert.equal(await page.locator('a[href*="bolt.new"], a[href*="stackblitz"], [src*="bolt.new"], [src*="stackblitz"]').count(), 0, 'No builder badge or builder link in the rendered DOM');
-    assert.doesNotMatch(await page.locator('body').innerText(), /(?:powered\\s+by\\s+bolt|built\\s+with\\s+bolt)/i);
+    assert.doesNotMatch(await page.locator('body').innerText(), /(?:powered\s+by\s+bolt|built\s+with\s+bolt)/i);
     assert.equal(await page.locator('#showcase article').count(), 6);
     const conceptImages = await page.locator('#showcase article').evaluateAll(nodes => nodes.map(node => node.getAttribute('data-concept-image')));
     assert.equal(conceptImages.length, 6);
