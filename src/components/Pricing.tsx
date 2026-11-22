@@ -89,7 +89,7 @@ const CATALOGS: Catalog[] = [
     id: 'ads',
     tab: 'Meta Ads Management',
     subtitle: 'Targeted Client Acquisition',
-    banner: 'Agency fee only. Ad spend paid directly to Meta.',
+    banner: 'Agency fee only. Ad spend paid directly to Meta. Results vary by offer, audience, creative and budget.',
     packages: [
       {
         name: 'Campaign Essentials',
@@ -128,7 +128,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
     >
       {popular && (
         <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold-500 px-4 py-1.5 text-[11px] font-bold tracking-widest2 text-forest-900 shadow-card">
-          MOST POPULAR
+          RECOMMENDED
         </span>
       )}
 
@@ -182,7 +182,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
             : 'bg-forest-700 text-cream hover:bg-forest-600'
         }`}
       >
-        Book This Package
+        Enquire About This Package
       </a>
     </article>
   );
@@ -197,7 +197,7 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="PACKAGES"
-          title="Transparent Pricing, Serious Results"
+          title="Transparent Pricing, Clear Deliverables"
           subtitle="Choose the catalog that fits your stage — every package is delivered with agency-grade craft."
         />
 
