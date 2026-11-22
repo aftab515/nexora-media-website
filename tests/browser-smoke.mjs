@@ -13,6 +13,9 @@ try {
     await page.locator('h1').waitFor();
     assert.equal(await page.locator('h1').count(), 1);
     assert.ok(await page.locator('#showcase article').count() === 3);
+    assert.equal(await page.locator('#about').count(), 1);
+    assert.equal(await page.locator('#contact').count(), 1);
+    assert.equal(await page.locator('#contact a[href^="https://wa.me/"]').count(), 2);
     if (width < 1280) {
       await page.getByRole('button', { name: 'Toggle menu' }).click();
       assert.equal(await page.getByRole('button', { name: 'Toggle menu' }).getAttribute('aria-expanded'), 'true');
