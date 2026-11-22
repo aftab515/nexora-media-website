@@ -2,6 +2,8 @@ name: Website checks
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -47,3 +49,31 @@ jobs:
         with:
           name: verified-website-build
           path: dist/
+  source_release:
+    name: Publish versioned source pre-release
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-website-build
+          path: dist/
+      - name: Archive verified website build
+        run: tar -czf nexora-media-website-v0.1.0-build.tar.gz -C dist .
+      - name: Publish v0.1.0 pre-release only once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v0.1.0 >/dev/null 2>&1; then
+            echo "v0.1.0 already exists; no duplicate release will be created."
+          else
+            gh release create v0.1.0 nexora-media-website-v0.1.0-build.tar.gz \
+              --target "$GITHUB_SHA" \
+              --title "Nexora Media website v0.1.0 (source preview)" \
+              --notes-file docs/RELEASE_NOTES_v0.1.0.md \
+              --prerelease
+          fi
