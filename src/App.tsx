@@ -1,5 +1,7 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import About from './components/About';
+import Contact from './components/Contact';
 import Services from './components/Services';
 import Pricing from './components/Pricing';
 import WhyNexora from './components/WhyNexora';
@@ -15,12 +17,14 @@ function App() {
       <Navbar />
       <main id="main-content">
         <Hero />
+        <About />
         <Services />
         <Showcase />
         <Pricing />
         <WhyNexora />
         <AuditForm />
         <FAQ />
+        <Contact />
       </main>
       <Footer />
       <FloatingWhatsApp />
