@@ -1,7 +1,7 @@
 # Nexora Media launch checklist
 
 ## Implemented
-- Responsive landing page, service and pricing catalog, three explicitly labeled design concepts, FAQ, growth planner and WhatsApp inquiries.
+- Responsive landing page, agency introduction, service and pricing catalog, three explicitly labeled design concepts, FAQ, contact section, growth planner and WhatsApp inquiries.
 - No fabricated case-study metrics. Real case studies should only be added with permission and evidence.
 - Planner calculates rule-based advice locally. Automatic public Supabase lead insertion is disabled; users explicitly choose whether to send a WhatsApp message.
 - Existing prices and WhatsApp destination preserved. No Meta pixel, billing, or ad changes.
