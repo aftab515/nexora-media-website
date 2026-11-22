@@ -198,13 +198,13 @@ export default function Pricing() {
         <SectionHeading
           eyebrow="PACKAGES"
           title="Transparent Pricing, Clear Deliverables"
-          subtitle="Choose the catalog that fits your stage — every package is delivered with agency-grade craft."
+          subtitle="Compare monthly deliverables. Confirm scope, content approvals and any additional costs before booking."
         />
 
         <Reveal delay={100}>
           <div
-            className="mt-12 flex flex-wrap justify-center gap-2 rounded-full border border-sage-200 bg-white p-2 shadow-card sm:mx-auto sm:w-fit"
-            role="tablist"
+            className="mt-12 flex flex-wrap justify-center gap-2 rounded-3xl border border-sage-200 bg-white p-2 shadow-card sm:mx-auto sm:w-fit"
+            role="group"
             aria-label="Service catalogs"
           >
             {CATALOGS.map((catalog) => {
@@ -212,8 +212,7 @@ export default function Pricing() {
               return (
                 <button
                   key={catalog.id}
-                  role="tab"
-                  aria-selected={isActive}
+                  aria-pressed={isActive}
                   onClick={() => setActiveId(catalog.id)}
                   className={`rounded-full px-5 py-3 text-sm font-semibold transition-all duration-300 ${
                     isActive
