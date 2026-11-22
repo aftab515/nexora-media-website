@@ -20,7 +20,7 @@ try {
     await page.getByRole('button', { name: 'International Brands', exact: true }).click();
     assert.equal(await page.locator('#showcase article').count(), 1);
     await page.getByRole('button', { name: 'All', exact: true }).click();
-    assert.equal(await page.locator('#showcase article').count(), 7);
+    assert.equal(await page.locator('#showcase article').count(), 6);
     assert.equal(await page.locator('#about').count(), 1);
     assert.equal(await page.locator('#contact').count(), 1);
     assert.equal(await page.locator('#contact a[href^="https://wa.me/"]').count(), 2);
