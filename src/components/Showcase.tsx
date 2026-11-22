@@ -121,7 +121,7 @@ export default function Showcase() {
         <div className="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((concept, index) => (
             <Reveal key={concept.title} delay={Math.min(index, 3) * 60}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-sage-200 bg-white shadow-card">
+              <article data-concept-image={concept.image} className="group flex h-full flex-col overflow-hidden rounded-3xl border border-sage-200 bg-white shadow-card">
                 <ConceptImage concept={concept} />
                 <div className="flex flex-1 flex-col p-6">
                   <p className="text-[11px] font-bold uppercase tracking-widest text-sage-600">{concept.category} · {concept.niche}</p>
