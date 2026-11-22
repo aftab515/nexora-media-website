@@ -141,7 +141,7 @@ export function diagnose(input: AuditInput): Diagnostic {
 
   return {
     score,
-    scoreLabel: 'High Untapped Revenue Potential',
+    scoreLabel: 'Preliminary recommendations — manual review needed',
     bottlenecks: [situationPoints[0], situationPoints[1], industryPoint],
     fixes: [situationFixesOf(input)[0], situationFixesOf(input)[1], industryFixOf(input)],
     planName: plan.name,
@@ -180,7 +180,7 @@ function industryFixOf(input: AuditInput): string {
 
 export function buildReportMessage(input: AuditInput, d: Diagnostic): string {
   return [
-    'Hi Nexora Media! I just generated my AI Brand Audit and would like to proceed.',
+    'Hi Nexora Media! I just generated my preliminary growth plan and would like to proceed.',
     '',
     `*Brand:* ${input.brandName}`,
     `*Industry:* ${input.industry}`,
@@ -188,9 +188,9 @@ export function buildReportMessage(input: AuditInput, d: Diagnostic): string {
     `*Current Situation:* ${input.situation}`,
     `*Primary Goal:* ${input.goal}`,
     '',
-    `*AI Growth Readiness Score:* ${d.score}/100 — ${d.scoreLabel}`,
+    'This is a questionnaire-based recommendation, not a live page audit.',
     '',
-    '*Top Bottlenecks Detected:*',
+    '*Potential issues to verify:*',
     `1. ${d.bottlenecks[0]}`,
     `2. ${d.bottlenecks[1]}`,
     `3. ${d.bottlenecks[2]}`,
@@ -204,11 +204,11 @@ export function buildClientMessageEn(input: AuditInput, d: Diagnostic): string {
   return [
     `Hello ${input.brandName} team, this is Nexora Media.`,
     '',
-    `We ran a quick complimentary audit of your page (${input.pageLink}) and wanted to share what we found.`,
+    `Based on your questionnaire answers about ${input.pageLink}, here are preliminary suggestions. We have not inspected the page or analytics.`,
     '',
-    `Growth Readiness Score: ${d.score}/100 — there is significant untapped revenue potential here.`,
+    'These suggestions require a manual review before they can be confirmed.',
     '',
-    '3 things holding the page back right now:',
+    '3 possible issues to check:',
     `1. ${d.bottlenecks[0]}`,
     `2. ${d.bottlenecks[1]}`,
     `3. ${d.bottlenecks[2]}`,
@@ -230,11 +230,11 @@ export function buildClientMessageUr(input: AuditInput, d: Diagnostic): string {
   return [
     `Assalam-o-Alaikum ${input.brandName} team! Nexora Media se baat kar rahe hain.`,
     '',
-    `Hum ne aap ke page (${input.pageLink}) ki free audit ki hai aur kuch important cheezein mili hain jo bataana chahte hain.`,
+    `Aap ke questionnaire ke jawabat (${input.pageLink}) ki bunyaad par yeh ibtidaai mashwaray hain. Hum ne page ya analytics check nahi kiye.`,
     '',
-    `Growth Score: ${d.score}/100 — matlab kaafi potential hai jo abhi use nahi ho raha.`,
+    'In mashwaron ki tasdeeq manual review ke baad hogi.',
     '',
-    'Filhal 3 cheezein page ko rok rahi hain:',
+    '3 mumkin masail jinhein check karna chahiye:',
     `1. ${d.bottlenecks[0]}`,
     `2. ${d.bottlenecks[1]}`,
     `3. ${d.bottlenecks[2]}`,
