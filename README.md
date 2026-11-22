@@ -4,7 +4,7 @@
 
 **Repository description (for the GitHub About sidebar):** Nexora Media's responsive marketing agency website, portfolio concepts, service packages, WhatsApp inquiries and growth planner.
 
-> **Website:** Production URL not yet verified. A source-code release and a successful build do **not** mean the site has been deployed.
+> **Website:** [https://nexoramediaofficial.vercel.app/](https://nexoramediaofficial.vercel.app/) — Vercel confirmed domain assignment and deployment READY, and the owner confirmed the page loads on 22 November 2026. Public commercial hosting compliance and the legacy Supabase policy review remain open.
 
 ## Features
 
@@ -19,7 +19,7 @@
 - **About:** [Suggested GitHub About description, topics and homepage policy](docs/REPOSITORY_PROFILE.md).
 - **Releases:** [v0.1.0 source-preview notes](docs/RELEASE_NOTES_v0.1.0.md) and [change history](CHANGELOG.md). After a merge to `main`, CI will verify the exact code and, if successful, create one private **pre-release** with the verified static build. That is not a Vercel launch.
 - **Packages:** [Commercial marketing service packages](docs/SERVICE_PACKAGES.md) are described separately from GitHub's software package registry. This repository is a **private website application**, not a reusable npm library or container. `GitHub Packages` is intentionally empty.
-- **Deployment:** [Vercel and production checks](docs/DEPLOYMENT.md). No canonical site URL has been confirmed.
+- **Deployment:** [https://nexoramediaofficial.vercel.app/](https://nexoramediaofficial.vercel.app/); [Vercel and production checks](docs/DEPLOYMENT.md). Vercel domain is verified; final compliance and database security items remain.
 
 ## Local development
 
@@ -44,7 +44,7 @@ GitHub Actions additionally runs browser smoke tests at mobile, tablet and deskt
 
 ## Vercel deployment
 
-The repository includes `vercel.json` for the Vite build and security headers. Deployment requires an **authorized Vercel account and a verified project connected to this repository**. **No Vercel project URL or custom domain is assumed.** See [deployment and security checklist](docs/DEPLOYMENT.md) for staging, production and remaining access requirements.
+The repository includes `vercel.json` for the Vite build and security headers. The Vercel project `nexora-media-website` is connected to `main`, with a verified domain: [https://nexoramediaofficial.vercel.app/](https://nexoramediaofficial.vercel.app/). The owner confirmed this site is loading. This is a Vercel subdomain, not a separately purchased custom apex domain. See [deployment and security checklist](docs/DEPLOYMENT.md) for remaining commercial hosting eligibility and legacy database security requirements.
 
 ## Sensitive integration note
 

@@ -1,6 +1,6 @@
 # Nexora Media — Vercel deployment and final verification
 
-**Source branch reviewed:** `improvements/website-audit` (PR #1 into `main`). The owner explicitly authorized merging the reviewed source into `main` before Vercel production deployment. Merging is not itself a public launch.
+**Live Vercel project address:** [https://nexoramediaofficial.vercel.app/](https://nexoramediaofficial.vercel.app/) — Vercel domain verified and owner confirmed the site opens on 22 November 2026. Project `nexora-media-website` deploys from GitHub `main`. The site URL is valid, but the Vercel Hobby commercial-use restriction and legacy Supabase permission review remain unresolved.
 
 ## 1. Current scope
 
@@ -12,12 +12,16 @@ The site is a static Vite/React application. Build with Node 22.12+ using `npm c
 
 - Sign in to the **authorized Vercel team/account**. Do not paste API tokens, recovery codes or secrets into chat, issues or commits.
 - Enable account **two-factor authentication (2FA)** before public launch. The authenticated Vercel dashboard displayed an 'Enable 2FA' reminder during the 22 November 2026 check; confirm it is actually enabled before considering the account secured.
-- Confirm whether a **Nexora Media project** already exists. Avoid creating a duplicate project or replacing another site's deployment.
-- If no project exists, import GitHub repository `aftab515/nexora-media-website`, set framework to Vite, root directory `./`, output `dist` and production branch `main`.
+- Nexora Vercel project exists: `nexora-media-website` (`prj_oJ6DQmiQ32r2RAMMaA5fGTA3S84X`). Do not create duplicates or replace unrelated sites.
+- The existing project imports GitHub `aftab515/nexora-media-website`, framework Vite, Node 22.x, root `./`, output `dist` and production branch `main`.
 - Enable Git integration for preview deployments on pull requests, including `improvements/website-audit`, and inspect the preview before merging.
-- Do **not** claim a hosted preview URL, production URL or domain until it is returned by Vercel and can be opened.
+- The hostname [https://nexoramediaofficial.vercel.app/](https://nexoramediaofficial.vercel.app/) is verified as attached to this Vercel project and the owner reports successful browsing. Confirm public access, commercial hosting eligibility, and contact workflow before declaring final launch complete.
 
 An authenticated Vercel dashboard tab is not the same as an **installed ChatGPT Vercel connection**. Deployment from ChatGPT requires a connected app with deployment permissions, or an explicitly authorized Work/browser session.
+
+## Commercial hosting review
+
+This Vercel workspace was verified on the Hobby plan on 22 November 2026. The Nexora business site is commercial, so its hosting eligibility requires an appropriate plan or alternative provider. No subscription upgrade has been made. The owner's successful access to the URL does not settle plan compliance.
 
 ## 3. Pre-production security blocker
 
