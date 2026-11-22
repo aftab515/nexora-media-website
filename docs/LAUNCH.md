@@ -33,7 +33,12 @@ Screenshots and checks do not substitute for a human review on real devices.
 
 ## Remaining preview and hosting requirements
 - GitHub Actions builds and browser-screenshots are development verification, not a public preview deployment. Check the available hosting provider before offering a preview URL; no staging URL has yet been verified.
-- Keep changes on `improvements/website-audit` until the owner has approved the final hosted preview and sensitive infrastructure changes.
+- The owner explicitly authorized merging the verified source branch into `main`. This is a repository-code merge only, not consent to modify live database policies or claim a verified Vercel deployment.
+
+## GitHub repository overview
+- The repository README links its About metadata guidance, source pre-release notes, marketing service package catalog and deployment checklist. The GitHub About sidebar itself is a separate repository-administration setting; README text does not update it.
+- GitHub Packages is intentionally not used for this private static website; the company's commercial service plans are documented in `docs/SERVICE_PACKAGES.md`.
+- The `v0.1.0` GitHub source pre-release is gated on successful `main` verification and must not be represented as a public website launch.
 
 ## Before deployment
 - Check the actual public domain and hosting destination; do not invent canonical URLs.
@@ -42,5 +47,5 @@ Screenshots and checks do not substitute for a human review on real devices.
 - Review the privacy notice against actual hosting, analytics, data handling and retention practices.
 - Confirm the lead workflow in WhatsApp Business: use existing labels, follow-up reminders, and manual qualification. Do not store sensitive health information.
 - Review any legacy Supabase public insert policies and existing records separately; removing the frontend call does not revoke database access.
-- Merge the reviewed branch only after verification. Publish the built `dist/` directory using the authorized hosting provider.
+- After repository merge, let GitHub Actions re-run website checks on `main` and publish only a private source-code pre-release. Deploy the built `dist/` directory separately using the authorized Vercel project, then verify the actual hosted URL.
 - After deployment, verify HTTPS, mobile rendering, navigation and live inquiry delivery. Configure domain-specific sitemap and social preview image only when the domain is confirmed.
