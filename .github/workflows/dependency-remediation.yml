@@ -1,0 +1,52 @@
+name: One-time dependency remediation
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/dependency-remediation.yml'
+permissions:
+  contents: write
+jobs:
+  remediate:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'improvements/website-audit'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install current dependencies
+        run: npm ci
+      - name: Confirm unused Supabase client
+        run: |
+          if grep -R -E "from ['\"](.*supabase|@supabase)" src --include='*.ts' --include='*.tsx' | grep -v '^src/lib/supabase.ts:'; then
+            echo "Supabase still imported in active source; refusing automatic removal"
+            exit 1
+          fi
+      - name: Remove unused Supabase dependency and repair vulnerable packages
+        run: |
+          npm uninstall @supabase/supabase-js
+          git rm src/lib/supabase.ts
+          npm audit fix
+      - name: Verify dependency security
+        run: |
+          npm audit --audit-level=high
+          npm audit --omit=dev --audit-level=high
+      - name: Verify website functionality
+        run: |
+          npm run typecheck
+          npm run lint
+          node --experimental-strip-types --test tests/growth-planner.test.mjs
+          npm run build
+      - name: Commit reviewed dependency repairs to development branch
+        run: |
+          git add package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "Remove unused Supabase client and patch vulnerable dependencies"
+            git push origin HEAD:refs/heads/improvements/website-audit
+          fi
