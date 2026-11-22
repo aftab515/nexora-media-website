@@ -17,15 +17,13 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Dependency audit (production dependencies)
-        run: npm audit --omit=dev --audit-level=high
-        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=moderate
       - run: npm run typecheck
       - run: npm run lint
       - run: node --experimental-strip-types --test tests/growth-planner.test.mjs
       - run: npm run build
       - name: Full dependency audit
-        run: npm audit --audit-level=high
-        continue-on-error: true
+        run: npm audit --audit-level=moderate
       - run: npm install --no-save --package-lock=false playwright@1.56.1
       - run: npx playwright install --with-deps chromium
       - name: Browser smoke checks
