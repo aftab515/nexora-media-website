@@ -4,11 +4,13 @@ import Logo from './Logo';
 import { scrollToId } from '../constants';
 
 const NAV_LINKS = [
+  { label: 'About', id: 'about' },
   { label: 'Services', id: 'services' },
   { label: 'Showcase', id: 'showcase' },
   { label: 'Packages', id: 'packages' },
   { label: 'Our System', id: 'system' },
   { label: 'Growth Planner', id: 'audit' },
+  { label: 'Contact', id: 'contact' },
 ];
 
 export default function Navbar() {
@@ -51,7 +53,7 @@ export default function Navbar() {
           <Logo />
         </button>
 
-        <ul className="hidden items-center gap-6 xl:flex">
+        <ul className="hidden items-center gap-4 xl:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.id}>
               <button
