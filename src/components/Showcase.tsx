@@ -23,6 +23,20 @@ const CONCEPTS: Concept[] = [
     description: 'An appetite-led campaign concept combining product photography, warm lighting and an immediate order-focused message.',
   },
   {
+    title: 'Pearl Dental Studio',
+    category: 'Healthcare',
+    niche: 'Dental clinic',
+    image: '/portfolio/dental-clinic.webp',
+    description: 'A welcoming dental brand concept that emphasizes comfort, clarity and professional presentation.',
+  },
+  {
+    title: 'Velune Skincare',
+    category: 'International Brands',
+    niche: 'Beauty & cosmetics',
+    image: '/portfolio/international-skincare.webp',
+    description: 'A premium editorial direction for a global-facing skincare brand, using product-focused storytelling and restrained typography.',
+  },
+  {
     title: 'Stack House',
     category: 'Food & Restaurants',
     niche: 'Burger restaurant',
@@ -37,25 +51,11 @@ const CONCEPTS: Concept[] = [
     description: 'A calm, consultation-led skin clinic concept focused on clear information and a distinctive, natural visual palette.',
   },
   {
-    title: 'Pearl Dental Studio',
-    category: 'Healthcare',
-    niche: 'Dental clinic',
-    image: '/portfolio/dental-clinic.webp',
-    description: 'A welcoming dental brand concept that emphasizes comfort, clarity and professional presentation.',
-  },
-  {
     title: 'Compassionate Care',
     category: 'Healthcare',
     niche: 'Family hospital',
     image: '/portfolio/family-hospital.webp',
     description: 'An accessible visual system for communicating family healthcare services and patient-focused information.',
-  },
-  {
-    title: 'Velune Skincare',
-    category: 'International Brands',
-    niche: 'Beauty & cosmetics',
-    image: '/portfolio/international-skincare.webp',
-    description: 'A premium editorial direction for a global-facing skincare brand, using product-focused storytelling and restrained typography.',
   },
 ];
 
