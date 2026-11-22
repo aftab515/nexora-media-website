@@ -8,11 +8,11 @@ export function whatsappLink(message: string): string {
 
 export const WHATSAPP_MESSAGES = {
   general: 'Hi Nexora Media! I would like to know more about your services.',
-  freeAudit: 'Hi Nexora Media! I would like to claim my Free 5-Min Page Audit.',
+  freeAudit: 'Hi Nexora Media! I would like to request a manual review of my social media page.',
   package: (name: string, price: string) =>
     `Hi Nexora Media! I'm interested in the ${name} (${price}) package.`,
 };
 
 export function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
