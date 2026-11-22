@@ -3,11 +3,13 @@ import Logo from './Logo';
 import { whatsappLink, scrollToId, WHATSAPP_MESSAGES } from '../constants';
 
 const QUICK_LINKS = [
+  { label: 'About', id: 'about' },
   { label: 'Services', id: 'services' },
   { label: 'Showcase', id: 'showcase' },
   { label: 'Packages', id: 'packages' },
   { label: 'Our System', id: 'system' },
   { label: 'Growth Planner', id: 'audit' },
+  { label: 'Contact', id: 'contact' },
 ];
 
 export default function Footer() {
