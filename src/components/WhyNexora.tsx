@@ -29,7 +29,7 @@ const STEPS = [
 const FREELANCER_POINTS = [
   'Basic templates',
   'Random posting',
-  'Wasted Boost budgets',
+  'Unmeasured boosting',
 ];
 
 const NEXORA_POINTS = [
@@ -44,8 +44,8 @@ export default function WhyNexora() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="WHY NEXORA"
-          title="Not Another Freelancer. A Revenue System."
-          subtitle="Most pages don't fail from lack of posting — they fail from lack of strategy. Here's the difference."
+          title="A Structured Approach to Growth"
+          subtitle="A clear process connects brand positioning, content and campaign measurement."
         />
 
         <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
@@ -56,7 +56,7 @@ export default function WhyNexora() {
                   <User size={22} />
                 </span>
                 <h3 className="font-serif text-xl font-semibold text-forest-500">
-                  Ordinary Freelancers
+                  Unplanned Marketing
                 </h3>
               </div>
               <div className="my-6 h-px w-full bg-sage-200" aria-hidden="true" />
@@ -71,7 +71,7 @@ export default function WhyNexora() {
                 ))}
               </ul>
               <p className="mt-6 text-sm italic text-forest-400">
-                Activity without direction — budgets burn, feeds stay quiet.
+                Without defined goals, it is harder to evaluate performance.
               </p>
             </article>
           </Reveal>
