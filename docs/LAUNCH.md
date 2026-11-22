@@ -20,7 +20,7 @@ Screenshots and checks do not substitute for a human review on real devices.
 
 ## Portfolio image installation
 - The gallery expects six optimized WebP assets in `public/portfolio/`: `pizza-restaurant.webp`, `burger-restaurant.webp`, `healthcare-clinic.webp`, `dental-clinic.webp`, `family-hospital.webp`, `international-skincare.webp`.
-- Source images were approved in the Glowing Star conversation and prepared as `nexora-website-portfolio-assets.zip` (the archive contains the correct `public/portfolio/` folder layout). **These binary images must be uploaded to the repository before deployment**; the GitHub text-file connector cannot write binary assets. Until then the gallery displays an explicit image-pending fallback.
+- Source images were approved in the Glowing Star conversation and prepared as `nexora-website-portfolio-distinct-assets.zip` (the archive contains the correct `public/portfolio/` folder layout). **These binary images must be uploaded to the repository before deployment**; the GitHub text-file connector cannot write binary assets. Until then the gallery displays an explicit image-pending fallback.
 - The multi-industry collage was deliberately excluded from the gallery because it repeats food and healthcare subjects already shown as standalone campaigns. Do not upload it as a separate portfolio item.
 - Salon and retail categories should be expanded only with distinct standalone artwork; the collage is not a substitute.
 - Every concept is a fictional brand or illustrative campaign. Do not represent any as commissioned work or claim actual customer relationships without evidence.
