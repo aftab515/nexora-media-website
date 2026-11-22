@@ -9,8 +9,14 @@
 
 ## Verification
 Use Node 22.12+ and run `npm ci`, `npm run typecheck`, `npm run lint`, `npm run build`, and `node --experimental-strip-types --test tests/growth-planner.test.mjs`.
-Browser smoke checks: install Playwright with `npm install --no-save --package-lock=false playwright@1.51.1`, run `npx playwright install chromium`, start `npm run preview -- --host 127.0.0.1`, then `node tests/browser-smoke.mjs`.
+Browser smoke checks: install Playwright with `npm install --no-save --package-lock=false playwright@1.56.1`, run `npx playwright install --with-deps chromium`, start `npm run preview -- --host 127.0.0.1`, then `node tests/browser-smoke.mjs`.
 Screenshots and checks do not substitute for a human review on real devices.
+
+## Security status and database migration
+- Dependency remediation on the development branch removed the unused Supabase browser client and upgraded vulnerable npm packages. GitHub Actions reported zero known npm audit vulnerabilities on 22 November 2026. Recheck at every release.
+- The legacy Supabase migrations grant anonymous INSERT access to `audit_leads`. A new migration, `20261122090000_disable_public_audit_lead_submission.sql`, revokes this permission. **It has not been applied to a live database**; verify the Supabase project and execute it using the authorized deployment process before assuming the endpoint is closed.
+- No existing database rows are deleted by the migration. Review data retention and remove obsolete records only after owner approval.
+- The public growth planner does not require Supabase credentials, API keys, or a live database.
 
 ## Before deployment
 - Check the actual public domain and hosting destination; do not invent canonical URLs.
