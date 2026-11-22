@@ -50,9 +50,9 @@ const GOALS = [
 ];
 
 const SCAN_STEPS = [
-  'Scanning brand positioning, bio hook & visual authority...',
-  'Analyzing short-form Reels retention & content gaps...',
-  'Calculating Meta Ads funnel leaks & matching optimal Nexora package...',
+  'Reviewing your selected business situation...',
+  'Matching possible content and campaign improvements...',
+  'Preparing suggested services based on your goal...',
 ];
 
 const EMPTY_FORM: AuditInput = {
@@ -73,8 +73,6 @@ const labelClasses = 'mb-2 block text-sm font-semibold text-forest-800';
 export default function AuditForm() {
   const [phase, setPhase] = useState<Phase>('form');
   const [form, setForm] = useState<AuditInput>(EMPTY_FORM);
-  const [saved, setSaved] = useState(false);
-  const [saveFailed, setSaveFailed] = useState(false);
   const [incomplete, setIncomplete] = useState(false);
   const [scanStep, setScanStep] = useState(0);
   const [result, setResult] = useState<Diagnostic | null>(null);
@@ -101,7 +99,7 @@ export default function AuditForm() {
     return () => timers.forEach(clearTimeout);
   }, [phase, form]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (phase !== 'form') return;
 
@@ -126,18 +124,9 @@ export default function AuditForm() {
     }
     setIncomplete(false);
     setForm(input);
-    setSaved(false);
-    setSaveFailed(false);
     setScanStep(0);
     setPhase('scanning');
 
-    try {
-      const { error } = await supabaseInsert(input);
-      setSaved(!error);
-      setSaveFailed(!!error);
-    } catch {
-      setSaveFailed(true);
-    }
   };
 
   const reset = () => {
@@ -173,15 +162,13 @@ export default function AuditForm() {
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[11px] font-bold tracking-widest2 text-gold-400">
-              NEXORA AI BRAND AUDIT &amp; STRATEGY GENERATOR
+              NEXORA BRAND GROWTH PLANNER
             </p>
             <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-cream sm:text-4xl">
-              Get an Instant AI Audit of Your Brand
+              Build Your Preliminary Growth Plan
             </h2>
             <p className="mt-4 text-base leading-relaxed text-sage-100">
-              Answer 5 quick questions and our engine will scan your brand, detect
-              revenue bottlenecks, and match the exact Nexora package to fix them — in
-              seconds, completely free.
+              Answer five questions for a free, rule-based recommendation. This tool does not inspect your social page, advertising data or actual performance. Request a manual review for verified findings.
             </p>
           </div>
         </Reveal>
@@ -202,6 +189,7 @@ export default function AuditForm() {
                       id="brand-name"
                       type="text"
                       name="brandName"
+                      maxLength={120}
                       required
                       value={form.brandName}
                       onChange={(e) => setForm({ ...form, brandName: e.target.value })}
@@ -241,6 +229,7 @@ export default function AuditForm() {
                       id="page-link"
                       type="text"
                       name="pageLink"
+                      maxLength={300}
                       required
                       value={form.pageLink}
                       onChange={(e) => setForm({ ...form, pageLink: e.target.value })}
@@ -299,19 +288,19 @@ export default function AuditForm() {
                     type="submit"
                     className="group mt-1 inline-flex items-center justify-center gap-2.5 rounded-full bg-forest-700 px-7 py-4 text-sm font-semibold text-cream shadow-elevated transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-600"
                   >
-                    Generate Instant Audit
+                    Generate Growth Plan
                     <Sparkles size={18} className="text-gold-400 transition-transform duration-300 group-hover:scale-125" />
                   </button>
 
                   {incomplete && (
                     <p className="flex items-center justify-center gap-2 rounded-2xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
                       <AlertCircle size={16} className="shrink-0" />
-                      Please fill in all 5 fields above so the AI audit can run.
+                      Please fill in all 5 fields above so the growth planner can run.
                     </p>
                   )}
 
                   <p className="text-center text-[13px] text-forest-400">
-                    100% free — no sign-up, no obligations.
+                    Free, no sign-up. Answers stay in your browser unless you choose to send them via WhatsApp. Do not enter sensitive information.
                   </p>
                 </div>
               </form>
@@ -325,7 +314,7 @@ export default function AuditForm() {
                     <ScanSearch size={32} className="relative text-gold-400" />
                   </span>
                   <h3 className="mt-6 font-serif text-2xl font-semibold text-forest-700">
-                    Running Your AI Brand Audit
+                    Preparing Your Growth Plan
                   </h3>
                   <p className="mt-1 text-sm font-medium text-forest-400">{form.brandName}</p>
                 </div>
@@ -383,7 +372,7 @@ export default function AuditForm() {
                   <article className="flex flex-col rounded-[2rem] bg-white p-7 shadow-popular sm:p-8">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="font-serif text-xl font-semibold text-forest-700">
-                        Live Brand Diagnostic Summary
+                        Preliminary Growth Recommendations
                       </h3>
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-forest-700 text-gold-400">
                         <TrendingUp size={19} />
@@ -392,10 +381,7 @@ export default function AuditForm() {
 
                     <div className="mt-5 flex items-center justify-between rounded-2xl bg-forest-700 px-5 py-4">
                       <div>
-                        <p className="font-serif text-3xl font-bold text-cream">
-                          {result.score}
-                          <span className="text-lg text-sage-100"> / 100</span>
-                        </p>
+                        <p className="font-serif text-xl font-bold text-cream">Based on your answers</p>
                         <p className="text-[13px] font-semibold text-gold-400">
                           {result.scoreLabel}
                         </p>
@@ -406,7 +392,7 @@ export default function AuditForm() {
                     <div className="mt-6">
                       <p className="flex items-center gap-2 text-sm font-bold text-forest-800">
                         <AlertTriangle size={16} className="text-gold-600" />
-                        3 Critical Bottlenecks Detected
+                        3 areas to investigate
                       </p>
                       <ul className="mt-3 flex flex-col gap-3">
                         {result.bottlenecks.map((b, i) => (
@@ -417,7 +403,7 @@ export default function AuditForm() {
                             <span className="mt-0.5 font-serif text-sm font-bold text-gold-600">
                               {i + 1}.
                             </span>
-                            <span className="text-[14px] leading-snug text-forest-500">{b}</span>
+                            <span className="text-[14px] leading-snug text-forest-500">Potential issue to verify: {b}</span>
                           </li>
                         ))}
                       </ul>
@@ -461,11 +447,11 @@ export default function AuditForm() {
                   <article className="flex flex-col rounded-[2rem] border-2 border-gold-500/60 bg-white p-7 shadow-popular sm:p-8">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="font-serif text-xl font-semibold text-forest-700">
-                        AI-Prepared Client Audit Message
+                        Draft Discussion Message
                       </h3>
                       <span className="flex items-center gap-1.5 rounded-full bg-forest-700 px-3 py-1.5 text-[11px] font-bold text-cream">
                         <Sparkles size={12} className="text-gold-400" />
-                        READY TO SHARE
+                        REVIEW FIRST
                       </span>
                     </div>
 
@@ -501,7 +487,7 @@ export default function AuditForm() {
                         Copy Client Response
                       </button>
                       <a
-                        href={whatsappLink(clientMessage)}
+                        href={`https://wa.me/?text=${encodeURIComponent(clientMessage)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-sage-600 px-4 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-sage-500"
@@ -519,8 +505,7 @@ export default function AuditForm() {
                     )}
 
                     <p className="mt-4 text-center text-[12px] text-forest-400">
-                      Forward this message to the client on WhatsApp — it is written and
-                      ready to send as-is.
+                      Verify the suggested issues manually before sharing this draft with a client.
                     </p>
                   </article>
                 </div>
@@ -533,19 +518,6 @@ export default function AuditForm() {
                     <RotateCcw size={15} />
                     Reset / Audit Another Brand
                   </button>
-                  {saved && (
-                    <p className="flex items-center gap-2 text-[13px] font-medium text-sage-100">
-                      <CheckCircle2 size={15} className="text-gold-400" />
-                      This audit was also saved to the Nexora team&apos;s lead list.
-                    </p>
-                  )}
-                  {saveFailed && (
-                    <p className="flex items-center gap-2 text-[13px] font-medium text-sage-100">
-                      <AlertCircle size={15} className="text-gold-400" />
-                      Note: the audit ran fine but could not be saved to the team&apos;s
-                      lead list.
-                    </p>
-                  )}
                 </div>
               </div>
             )}
@@ -556,13 +528,3 @@ export default function AuditForm() {
   );
 }
 
-async function supabaseInsert(form: AuditInput) {
-  const { supabase } = await import('../lib/supabase');
-  return supabase.from('audit_leads').insert({
-    brand_name: form.brandName.trim(),
-    page_link: form.pageLink.trim(),
-    primary_goal: form.goal,
-    industry: form.industry,
-    situation: form.situation,
-  });
-}
