@@ -83,9 +83,6 @@ function ConceptImage({ concept }: { concept: Concept }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       )}
-      <span className="absolute left-4 top-4 rounded-full bg-forest-800/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-cream">
-        Concept Campaign
-      </span>
     </div>
   );
 }
