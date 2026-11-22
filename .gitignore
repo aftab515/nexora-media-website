@@ -21,3 +21,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Legacy builder metadata is not needed for this repository
+.bolt/
