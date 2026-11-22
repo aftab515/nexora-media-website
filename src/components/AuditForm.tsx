@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Sparkles,
   MessageCircle,
@@ -7,7 +7,6 @@ import {
   Copy,
   Share2,
   RotateCcw,
-  ScanSearch,
   TrendingUp,
   AlertTriangle,
   Target,
@@ -49,12 +48,6 @@ const GOALS = [
   'Full End-to-End Social Media Management',
 ];
 
-const SCAN_STEPS = [
-  'Scanning brand positioning, bio hook & visual authority...',
-  'Analyzing short-form Reels retention & content gaps...',
-  'Calculating Meta Ads funnel leaks & matching optimal Nexora package...',
-];
-
 const EMPTY_FORM: AuditInput = {
   brandName: '',
   industry: '',
@@ -63,7 +56,7 @@ const EMPTY_FORM: AuditInput = {
   goal: '',
 };
 
-type Phase = 'form' | 'scanning' | 'result';
+type Phase = 'form' | 'result';
 
 const inputClasses =
   'w-full rounded-2xl border border-sage-200 bg-cream px-5 py-4 text-[15px] font-medium text-forest-800 placeholder:text-forest-400 placeholder:font-normal outline-none transition-all duration-300 focus:border-sage-600 focus:bg-white focus:ring-4 focus:ring-sage-100';
@@ -73,10 +66,10 @@ const labelClasses = 'mb-2 block text-sm font-semibold text-forest-800';
 export default function AuditForm() {
   const [phase, setPhase] = useState<Phase>('form');
   const [form, setForm] = useState<AuditInput>(EMPTY_FORM);
-  const [saved, setSaved] = useState(false);
-  const [saveFailed, setSaveFailed] = useState(false);
   const [incomplete, setIncomplete] = useState(false);
-  const [scanStep, setScanStep] = useState(0);
+  const resultHeading = useRef<HTMLHeadingElement>(null);
+  const firstInput = useRef<HTMLInputElement>(null);
+  const [copyFailed, setCopyFailed] = useState(false);
   const [result, setResult] = useState<Diagnostic | null>(null);
   const [lang, setLang] = useState<'en' | 'ur'>('en');
   const [copied, setCopied] = useState(false);
@@ -87,21 +80,10 @@ export default function AuditForm() {
       : buildClientMessageUr(form, result)
     : '';
   useEffect(() => {
-    if (phase !== 'scanning') return;
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    SCAN_STEPS.forEach((_, i) => {
-      if (i > 0) timers.push(setTimeout(() => setScanStep(i), (i * 2200) / SCAN_STEPS.length));
-    });
-    timers.push(
-      setTimeout(() => {
-        setResult(diagnose(form));
-        setPhase('result');
-      }, 2200)
-    );
-    return () => timers.forEach(clearTimeout);
-  }, [phase, form]);
+    if (phase === 'result') resultHeading.current?.focus();
+  }, [phase]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (phase !== 'form') return;
 
@@ -117,7 +99,6 @@ export default function AuditForm() {
     if (
       !input.brandName ||
       !input.industry ||
-      !input.pageLink ||
       !input.situation ||
       !input.goal
     ) {
@@ -126,18 +107,9 @@ export default function AuditForm() {
     }
     setIncomplete(false);
     setForm(input);
-    setSaved(false);
-    setSaveFailed(false);
-    setScanStep(0);
-    setPhase('scanning');
+    setResult(diagnose(input));
+    setPhase('result');
 
-    try {
-      const { error } = await supabaseInsert(input);
-      setSaved(!error);
-      setSaveFailed(!!error);
-    } catch {
-      setSaveFailed(true);
-    }
   };
 
   const reset = () => {
@@ -145,16 +117,20 @@ export default function AuditForm() {
     setResult(null);
     setCopied(false);
     setIncomplete(false);
+    setCopyFailed(false);
     setPhase('form');
+    requestAnimationFrame(() => firstInput.current?.focus());
   };
 
   const copyMessage = async () => {
+    setCopyFailed(false);
     try {
       await navigator.clipboard.writeText(clientMessage);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
       setCopied(false);
+      setCopyFailed(true);
     }
   };
 
@@ -173,15 +149,13 @@ export default function AuditForm() {
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[11px] font-bold tracking-widest2 text-gold-400">
-              NEXORA AI BRAND AUDIT &amp; STRATEGY GENERATOR
+              NEXORA BRAND GROWTH PLANNER
             </p>
             <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-cream sm:text-4xl">
-              Get an Instant AI Audit of Your Brand
+              Build Your Preliminary Growth Plan
             </h2>
             <p className="mt-4 text-base leading-relaxed text-sage-100">
-              Answer 5 quick questions and our engine will scan your brand, detect
-              revenue bottlenecks, and match the exact Nexora package to fix them — in
-              seconds, completely free.
+              Answer a few questions for a free, rule-based recommendation. This tool does not inspect your social page, advertising data or actual performance. Request a manual review for verified findings.
             </p>
           </div>
         </Reveal>
@@ -200,12 +174,14 @@ export default function AuditForm() {
                     </label>
                     <input
                       id="brand-name"
+                      ref={firstInput}
                       type="text"
                       name="brandName"
+                      maxLength={120}
                       required
                       value={form.brandName}
                       onChange={(e) => setForm({ ...form, brandName: e.target.value })}
-                      placeholder="e.g. Life Care Clinic or Zara's Couture"
+                      placeholder="e.g. Your Business Name"
                       className={inputClasses}
                     />
                   </div>
@@ -235,13 +211,13 @@ export default function AuditForm() {
 
                   <div>
                     <label htmlFor="page-link" className={labelClasses}>
-                      Instagram or Facebook Page Link / @Handle
+                      Instagram or Facebook Page Link / @Handle (optional)
                     </label>
                     <input
                       id="page-link"
                       type="text"
                       name="pageLink"
-                      required
+                      maxLength={300}
                       value={form.pageLink}
                       onChange={(e) => setForm({ ...form, pageLink: e.target.value })}
                       placeholder="e.g. instagram.com/yourbrand or @yourbrand"
@@ -299,91 +275,32 @@ export default function AuditForm() {
                     type="submit"
                     className="group mt-1 inline-flex items-center justify-center gap-2.5 rounded-full bg-forest-700 px-7 py-4 text-sm font-semibold text-cream shadow-elevated transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-600"
                   >
-                    Generate Instant Audit
+                    Generate Growth Plan
                     <Sparkles size={18} className="text-gold-400 transition-transform duration-300 group-hover:scale-125" />
                   </button>
 
                   {incomplete && (
-                    <p className="flex items-center justify-center gap-2 rounded-2xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                    <p role="alert" className="flex items-center justify-center gap-2 rounded-2xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
                       <AlertCircle size={16} className="shrink-0" />
-                      Please fill in all 5 fields above so the AI audit can run.
+                      Please fill in the required fields above.
                     </p>
                   )}
 
                   <p className="text-center text-[13px] text-forest-400">
-                    100% free — no sign-up, no obligations.
+                    Free, no sign-up. Answers stay in your browser until you choose to share or copy them. Do not enter sensitive information.
                   </p>
                 </div>
               </form>
             )}
 
-            {phase === 'scanning' && (
-              <div className="animate-fade-up rounded-[2rem] bg-white p-9 shadow-popular sm:p-12">
-                <div className="flex flex-col items-center text-center">
-                  <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-forest-700">
-                    <span className="absolute inset-0 animate-ping rounded-full bg-forest-700/30" />
-                    <ScanSearch size={32} className="relative text-gold-400" />
-                  </span>
-                  <h3 className="mt-6 font-serif text-2xl font-semibold text-forest-700">
-                    Running Your AI Brand Audit
-                  </h3>
-                  <p className="mt-1 text-sm font-medium text-forest-400">{form.brandName}</p>
-                </div>
-
-                <div className="mt-8 flex flex-col gap-3">
-                  {SCAN_STEPS.map((step, i) => {
-                    const active = i === scanStep;
-                    const done = i < scanStep;
-                    return (
-                      <div
-                        key={step}
-                        className={`flex items-center gap-3.5 rounded-2xl border px-5 py-4 transition-all duration-500 ${
-                          done
-                            ? 'border-sage-200 bg-sage-50'
-                            : active
-                              ? 'border-forest-300 bg-cream shadow-card'
-                              : 'border-sage-100 bg-white opacity-45'
-                        }`}
-                      >
-                        {done ? (
-                          <CheckCircle2 size={20} className="shrink-0 text-sage-600" />
-                        ) : (
-                          <span
-                            className={`h-5 w-5 shrink-0 rounded-full border-[3px] ${
-                              active
-                                ? 'animate-spin border-sage-200 border-t-forest-700'
-                                : 'border-sage-200'
-                            }`}
-                          />
-                        )}
-                        <span
-                          className={`text-left text-sm font-medium ${
-                            done ? 'text-forest-500' : active ? 'text-forest-800' : 'text-forest-400'
-                          }`}
-                        >
-                          {step}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-8 h-1.5 overflow-hidden rounded-full bg-sage-100">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-sage-600 to-forest-700 transition-all duration-700 ease-linear"
-                    style={{ width: `${((scanStep + 1) / SCAN_STEPS.length) * 100}%` }}
-                  />
-                </div>
-              </div>
-            )}
 
             {phase === 'result' && result && (
               <div className="animate-fade-up flex flex-col gap-6">
                 <div className="grid gap-6 lg:grid-cols-2">
                   <article className="flex flex-col rounded-[2rem] bg-white p-7 shadow-popular sm:p-8">
                     <div className="flex items-center justify-between gap-3">
-                      <h3 className="font-serif text-xl font-semibold text-forest-700">
-                        Live Brand Diagnostic Summary
+                      <h3 ref={resultHeading} tabIndex={-1} className="font-serif text-xl font-semibold text-forest-700">
+                        Preliminary Growth Recommendations
                       </h3>
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-forest-700 text-gold-400">
                         <TrendingUp size={19} />
@@ -392,10 +309,7 @@ export default function AuditForm() {
 
                     <div className="mt-5 flex items-center justify-between rounded-2xl bg-forest-700 px-5 py-4">
                       <div>
-                        <p className="font-serif text-3xl font-bold text-cream">
-                          {result.score}
-                          <span className="text-lg text-sage-100"> / 100</span>
-                        </p>
+                        <p className="font-serif text-xl font-bold text-cream">Based on your answers</p>
                         <p className="text-[13px] font-semibold text-gold-400">
                           {result.scoreLabel}
                         </p>
@@ -406,7 +320,7 @@ export default function AuditForm() {
                     <div className="mt-6">
                       <p className="flex items-center gap-2 text-sm font-bold text-forest-800">
                         <AlertTriangle size={16} className="text-gold-600" />
-                        3 Critical Bottlenecks Detected
+                        3 areas to investigate
                       </p>
                       <ul className="mt-3 flex flex-col gap-3">
                         {result.bottlenecks.map((b, i) => (
@@ -417,7 +331,7 @@ export default function AuditForm() {
                             <span className="mt-0.5 font-serif text-sm font-bold text-gold-600">
                               {i + 1}.
                             </span>
-                            <span className="text-[14px] leading-snug text-forest-500">{b}</span>
+                            <span className="text-[14px] leading-snug text-forest-500">Potential issue to verify: {b}</span>
                           </li>
                         ))}
                       </ul>
@@ -454,27 +368,28 @@ export default function AuditForm() {
                       className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-forest-700 px-6 py-3.5 text-center text-sm font-semibold text-cream transition-all duration-300 hover:bg-forest-600"
                     >
                       <MessageCircle size={17} />
-                      Send Audit Report to Nexora WhatsApp ({WHATSAPP_DISPLAY})
+                      Send Growth Plan to Nexora WhatsApp ({WHATSAPP_DISPLAY})
                     </a>
                   </article>
 
                   <article className="flex flex-col rounded-[2rem] border-2 border-gold-500/60 bg-white p-7 shadow-popular sm:p-8">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="font-serif text-xl font-semibold text-forest-700">
-                        AI-Prepared Client Audit Message
+                        Draft Discussion Message
                       </h3>
                       <span className="flex items-center gap-1.5 rounded-full bg-forest-700 px-3 py-1.5 text-[11px] font-bold text-cream">
                         <Sparkles size={12} className="text-gold-400" />
-                        READY TO SHARE
+                        REVIEW FIRST
                       </span>
                     </div>
 
-                    <div className="mt-5 flex w-fit items-center gap-1 rounded-full border border-sage-200 bg-cream p-1">
+                    <div className="mt-5 flex w-fit flex-wrap items-center gap-1 rounded-full border border-sage-200 bg-cream p-1">
                       <Languages size={14} className="ml-2 text-sage-600" />
                       {(['en', 'ur'] as const).map((code) => (
                         <button
                           key={code}
-                          onClick={() => setLang(code)}
+                          onClick={() => { setLang(code); setCopied(false); setCopyFailed(false); }}
+                          aria-pressed={lang === code}
                           className={`rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-all duration-300 ${
                             lang === code
                               ? 'bg-forest-700 text-cream'
@@ -492,7 +407,7 @@ export default function AuditForm() {
                       </p>
                     </div>
 
-                    <div className="mt-5 grid grid-cols-2 gap-3">
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
                       <button
                         onClick={copyMessage}
                         className="inline-flex items-center justify-center gap-2 rounded-full border border-forest-300 bg-white px-4 py-3 text-[13px] font-semibold text-forest-700 transition-all duration-300 hover:border-sage-600 hover:text-sage-600"
@@ -501,7 +416,7 @@ export default function AuditForm() {
                         Copy Client Response
                       </button>
                       <a
-                        href={whatsappLink(clientMessage)}
+                        href={`https://wa.me/?text=${encodeURIComponent(clientMessage)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-sage-600 px-4 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-sage-500"
@@ -511,16 +426,16 @@ export default function AuditForm() {
                       </a>
                     </div>
 
+                    {copyFailed && <p role="alert" className="mt-3 text-sm text-forest-700">Copy is unavailable in this browser. Select the message text and copy it manually, or use WhatsApp sharing.</p>}
                     {copied && (
-                      <p className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-sage-50 px-4 py-2.5 text-[13px] font-semibold text-sage-700">
+                      <p role="status" className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-sage-50 px-4 py-2.5 text-[13px] font-semibold text-sage-700">
                         <CheckCircle2 size={15} />
                         Copied to Clipboard!
                       </p>
                     )}
 
                     <p className="mt-4 text-center text-[12px] text-forest-400">
-                      Forward this message to the client on WhatsApp — it is written and
-                      ready to send as-is.
+                      Verify the suggested issues manually before sharing this draft with a client.
                     </p>
                   </article>
                 </div>
@@ -531,21 +446,8 @@ export default function AuditForm() {
                     className="inline-flex items-center gap-2 text-sm font-semibold text-sage-100 transition-colors duration-300 hover:text-gold-400"
                   >
                     <RotateCcw size={15} />
-                    Reset / Audit Another Brand
+                    Start Another Growth Plan
                   </button>
-                  {saved && (
-                    <p className="flex items-center gap-2 text-[13px] font-medium text-sage-100">
-                      <CheckCircle2 size={15} className="text-gold-400" />
-                      This audit was also saved to the Nexora team&apos;s lead list.
-                    </p>
-                  )}
-                  {saveFailed && (
-                    <p className="flex items-center gap-2 text-[13px] font-medium text-sage-100">
-                      <AlertCircle size={15} className="text-gold-400" />
-                      Note: the audit ran fine but could not be saved to the team&apos;s
-                      lead list.
-                    </p>
-                  )}
                 </div>
               </div>
             )}
@@ -556,13 +458,3 @@ export default function AuditForm() {
   );
 }
 
-async function supabaseInsert(form: AuditInput) {
-  const { supabase } = await import('../lib/supabase');
-  return supabase.from('audit_leads').insert({
-    brand_name: form.brandName.trim(),
-    page_link: form.pageLink.trim(),
-    primary_goal: form.goal,
-    industry: form.industry,
-    situation: form.situation,
-  });
-}

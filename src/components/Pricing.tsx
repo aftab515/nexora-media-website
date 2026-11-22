@@ -89,7 +89,7 @@ const CATALOGS: Catalog[] = [
     id: 'ads',
     tab: 'Meta Ads Management',
     subtitle: 'Targeted Client Acquisition',
-    banner: 'Agency fee only. Ad spend paid directly to Meta.',
+    banner: 'Agency fee only. Ad spend paid directly to Meta. Results vary by offer, audience, creative and budget.',
     packages: [
       {
         name: 'Campaign Essentials',
@@ -128,7 +128,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
     >
       {popular && (
         <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold-500 px-4 py-1.5 text-[11px] font-bold tracking-widest2 text-forest-900 shadow-card">
-          MOST POPULAR
+          RECOMMENDED
         </span>
       )}
 
@@ -182,7 +182,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
             : 'bg-forest-700 text-cream hover:bg-forest-600'
         }`}
       >
-        Book This Package
+        Enquire About This Package
       </a>
     </article>
   );
@@ -197,14 +197,14 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="PACKAGES"
-          title="Transparent Pricing, Serious Results"
-          subtitle="Choose the catalog that fits your stage — every package is delivered with agency-grade craft."
+          title="Transparent Pricing, Clear Deliverables"
+          subtitle="Compare monthly deliverables. Confirm scope, content approvals and any additional costs before booking."
         />
 
         <Reveal delay={100}>
           <div
-            className="mt-12 flex flex-wrap justify-center gap-2 rounded-full border border-sage-200 bg-white p-2 shadow-card sm:mx-auto sm:w-fit"
-            role="tablist"
+            className="mt-12 flex flex-wrap justify-center gap-2 rounded-3xl border border-sage-200 bg-white p-2 shadow-card sm:mx-auto sm:w-fit"
+            role="group"
             aria-label="Service catalogs"
           >
             {CATALOGS.map((catalog) => {
@@ -212,8 +212,7 @@ export default function Pricing() {
               return (
                 <button
                   key={catalog.id}
-                  role="tab"
-                  aria-selected={isActive}
+                  aria-pressed={isActive}
                   onClick={() => setActiveId(catalog.id)}
                   className={`rounded-full px-5 py-3 text-sm font-semibold transition-all duration-300 ${
                     isActive
