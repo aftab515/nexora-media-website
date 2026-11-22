@@ -28,7 +28,18 @@ try {
       { timeout: 20000 }
     );
     assert.equal(await page.locator('#showcase .group img').count(), 6, 'All portfolio artwork must render');
-    await page.locator('#showcase').screenshot({ path: 'test-artifacts/portfolio-' + width + '.png' });
+    for (let i = 0; i < 6; i++) {
+      await page.locator('#showcase article').nth(i).scrollIntoViewIfNeeded();
+      await page.waitForFunction(
+        index => document.querySelectorAll('#showcase article')[index]?.closest('.reveal')?.classList.contains('is-visible'),
+        i,
+        { timeout: 10000 }
+      );
+    }
+    await page.locator('#showcase').screenshot({
+      path: 'test-artifacts/portfolio-' + width + '.png',
+      style: 'header, a[aria-label="Chat with Nexora Media on WhatsApp"] { visibility: hidden !important; }',
+    });
     await page.getByRole('button', { name: 'Healthcare', exact: true }).click();
     assert.equal(await page.locator('#showcase article').count(), 2);
     await page.getByRole('button', { name: 'Beauty & Wellness', exact: true }).click();
